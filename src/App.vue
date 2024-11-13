@@ -1,5 +1,16 @@
 <template>
- <router-view />
+    <router-view />
+    <FooterC />
 </template>
 
-<style></style>
+
+<script>
+import FooterC from './components/Footer.vue';
+
+export default {
+
+    components: {
+        FooterC
+    }
+}
+</script>

@@ -124,3 +124,11 @@ nav a.router-link-exact-active {
  font-weight: 900;
  font-style: italic;
 }
+
+.border-custom {
+ border-radius: 1.1rem !important;
+ -webkit-border-radius: 1.1rem !important;
+ -moz-border-radius: 1.1rem !important;
+ -ms-border-radius: 1.1rem !important;
+ -o-border-radius: 1.1rem !important;
+}
