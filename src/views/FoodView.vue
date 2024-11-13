@@ -1,0 +1,20 @@
+<template>
+ <NavbarC />
+ <div class="container">
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis
+  consequatur omnis voluptatum necessitatibus officiis neque odit itaque eos,
+  voluptate pariatur!
+ </div>
+</template>
+
+<script>
+import NavbarC from "@/components/Navbar.vue";
+export default {
+ name: "FoodView",
+ components: {
+  NavbarC,
+ },
+};
+</script>
+
+<style></style>
