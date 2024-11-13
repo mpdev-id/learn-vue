@@ -1,6 +1,9 @@
 <template>
-    <router-view />
-    <FooterC />
+    <div>
+
+        <router-view />
+        <FooterC />
+    </div>
 </template>
 
 

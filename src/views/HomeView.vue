@@ -1,29 +1,33 @@
 <template>
-    <NavbarC />
-    <div class="container">
-        <!-- HERO -->
-        <HeroC />
-        <!-- FOR YOU -->
-        <div class="m-1 p-2 shadow-xl row rounded-lg text-white align-items-center">
-            <div class="col-6">
-                <strong>
-                    For You
-                    <i class="bi bi-star"></i>
-                </strong>
+    <div>
+        <NavbarC />
+        <div class="container">
+            <!-- HERO -->
+            <HeroC />
+            <!-- FOR YOU -->
+            <div class="mt-5 p-1 shadow-xl row  align-items-center">
+                <div class="col-6">
+                    <span class="">
+                        Best Seller
+                        <i class="bi bi-moon-stars-fill text-info"></i>
+                    </span>
+                </div>
+                <div class="col-6">
+                    <router-link to="food" class="btn btn-info btn-lg float-right">
+                        <i class="bi bi-menu-app"></i>
+                    </router-link>
+                </div>
             </div>
-            <div class="col-6">
-                <router-link to="food" class="btn btn-light float-right">
-                    <i class="bi bi-menu-app"></i>
-                </router-link>
-            </div>
-        </div>
-        <!-- card for you -->
-        <div class="row p-2">
-            <div class=" col-md-3 col-6" v-for="product in products" :key="product.id">
-                <CardMenuC :product="product" />
+            <!-- card for you -->
+            <div class="row p-2 justify-content-center">
+                <div class=" col-xl-3 col-lg-4 col-md-6 col-12 my-2" v-for="product in products"
+                    :key="product.id">
+                    <CardMenuC :product="product" />
+                </div>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -56,13 +60,13 @@ export default {
 
     mounted() {
         axios
-            .get("http://localhost:3000/best-products")
+            .get("http://192.168.100.80:3000/best-products")
             .then((response) => {
                 // console.log(response);
                 this.setProducts(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
     },
 
