@@ -19,7 +19,9 @@
                 </div>
             </div>
             <!-- card for you -->
-            <div class="row p-2 justify-content-center">
+            <div class="row px-5 py-2 ">
+
+                <!-- cari -->
                 <div class=" col-xl-3 col-lg-4 col-md-6 col-12 my-2" v-for="product in products"
                     :key="product.id">
                     <CardMenuC :product="product" />
@@ -60,7 +62,7 @@ export default {
 
     mounted() {
         axios
-            .get("http://192.168.100.80:3000/best-products")
+            .get("http://localhost:3000/best-products")
             .then((response) => {
                 // console.log(response);
                 this.setProducts(response.data);
