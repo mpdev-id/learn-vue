@@ -170,3 +170,12 @@ nav a.router-link-exact-active {
  border-bottom-width: 4px !important;
  border-bottom-color: #7442b9ff;
 }
+.breadcrumb{
+    background-color: transparent !important;
+}
+.breadcrumb>li.active{
+color: #7442b9ff;
+text-decoration-line: underline;
+
+
+}

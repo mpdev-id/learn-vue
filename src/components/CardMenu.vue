@@ -1,5 +1,5 @@
 <template>
-    <router-link class="text-decoration-none text-dark" to="food">
+    <router-link class="text-decoration-none text-dark" :to="{ name: 'FoodDetailView', params: { id: product.id } }">
         <div class="card shadow-sm border-custom text-center border-bottom-1">
             <img :src="require(`@/assets/imgs/${product.gambar}`)"
                 class="rounded-top rounded gambar" alt="{{ product.nama}}">
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+
+
 export default {
     name: "CardMenuC",
     // cara 1
