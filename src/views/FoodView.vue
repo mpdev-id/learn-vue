@@ -58,7 +58,7 @@ export default {
         searchProduct(search) {
             // Get products from API with query parameter
             axios
-                .get("http://localhost:1000/products?q=" + search)
+                .get("http://localhost:3000/products?q=" + search)
                 .then((response) => {
                     // Set products data to component
                     this.setProducts(response.data);
@@ -71,7 +71,7 @@ export default {
 
     mounted() {
         axios
-            .get("http://localhost:1000/products")
+            .get("http://localhost:3000/products")
             .then((response) => {
                 // console.log(response);
                 this.setProducts(response.data);
