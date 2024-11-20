@@ -9,7 +9,8 @@
                             <RouterLink class="text-decoration-none" to="/">Home</RouterLink>
                         </li>
                         <li class="breadcrumb-item">
-                            <RouterLink class="text-decoration-none" to="/food">Food List</RouterLink>
+                            <RouterLink class="text-decoration-none" to="/food">Food List
+                            </RouterLink>
                         </li>
                         <li class="breadcrumb-item active text-decoration-none" aria-current="page">
                             <strong>
@@ -35,20 +36,24 @@
                             <strong>{{ product.nama ? product.nama : 'Sate Ayam' }}</strong>
                         </h2>
                         <hr>
-                        <h4 class="text-info my-2">Harga : <i class="bi bi-currency-bitcoin"></i><strong>{{
-                            product.harga ? product.harga : 'Rp. -' }}</strong> </h4>
+                        <h4 class="text-info my-2">Harga : <i
+                                class="bi bi-currency-bitcoin"></i><strong>{{
+                                    product.harga ? product.harga : 'Rp. -' }}</strong> </h4>
                         <div class="form-group">
                             <label for="JumlahPesan">Jumlah Pesan</label>
-                            <input type="number" min="0" max="10" :bind="product.jumlah_pemesanan"  class="form-control"
-                                id="JumlahPesan" placeholder="Jumlah Pesan">
+                            <input type="number" min="0" max="10" v-model="pesan.jumlah_pemesanan"
+                                class="form-control" id="JumlahPesan" placeholder="Jumlah Pesan">
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan Tambahan</label>
-                            <textarea :bind="product.keterangan" class="form-control" id="keterangan"
-                                placeholder="Keterangan: Pedes, Cepat, Nasi Setengah, dll" rows="5"></textarea>
+                            <textarea v-model="pesan.keterangan" class="form-control"
+                                id="keterangan"
+                                placeholder="Keterangan: Pedes, Cepat, Nasi Setengah, dll"
+                                rows="5"></textarea>
                         </div>
 
-                        <button type="submit" @click="tambahKeranjang" class="btn btn-info"> <i class="bi bi-cart2"></i> Pesan</button>
+                        <button type="submit" @click="tambahKeranjang" class="btn btn-info"> <i
+                                class="bi bi-cart2"></i> Pesan</button>
                     </form>
                 </div>
             </div>
@@ -66,7 +71,7 @@ export default {
     data() {
         return {
             product: {},
-            pesan: [],
+            pesan: {}
         }
     },
     methods: {
@@ -74,7 +79,51 @@ export default {
             this.product = data
         },
         tambahKeranjang() {
-            console.log(this.pesan);
+            if (!this.pesan.jumlah_pemesanan) {
+                this.$toast.error('kamu belum mengisi jumlah', {
+                    timeout: 5000,
+                    position: 'top-right',
+                    type: 'error',
+                    icon: 'times-circle',
+                    iconPack: 'fontawesome',
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    hideMethod: 'slideUp',
+                    dismissible: true,
+
+                })
+            } else {
+                this.pesan.products = this.product
+                axios.post("http://localhost:3000/keranjangs", this.pesan)
+                    .then(() => this.pesan.jumlah_pemesanan = 0)
+                    // .then(() => this.$router.push("/keranjang"))
+                    .then(() => {
+                        this.$toast.success(`Berhasil Menambahkan ${this.product.nama}`, {
+                            timeout: 2000,
+                            position: 'top-right',
+                            type: 'success',
+                            icon: 'check-circle',
+                            iconPack: 'fontawesome',
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            hideMethod: 'slideUp'
+
+                        })
+                    })
+                    .catch((x) => {
+                        this.$toast.error('error: ' + x, {
+                            timeout: 2000,
+                            position: 'top-right',
+                            type: 'error',
+                            icon: 'times-circle',
+                            iconPack: 'fontawesome',
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            hideMethod: 'slideUp',
+                        })
+                    });
+            }
+
         }
     },
     mounted() {

@@ -20,6 +20,7 @@ const routes = [
     name: 'FoodView',
     component: FoodView
   },
+
   {
     path: '/food/:id',
     name: 'FoodDetailView',
