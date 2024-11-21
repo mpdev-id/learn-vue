@@ -96,7 +96,7 @@ export default {
                 this.pesan.products = this.product
                 axios.post("http://localhost:3000/keranjangs", this.pesan)
                     .then(() => this.pesan.jumlah_pemesanan = 0)
-                    // .then(() => this.$router.push("/keranjang"))
+                    .then(() => this.$router.push("/order"))
                     .then(() => {
                         this.$toast.success(`Berhasil Menambahkan ${this.product.nama}`, {
                             timeout: 2000,

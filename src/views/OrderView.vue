@@ -1,10 +1,30 @@
 <template>
     <div>
-        <NavbarC />
+        <NavbarC :propsUpdateKeranjangs="keranjangs" />
         <div class="container">
+            <div class="row col-12 ">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb d-none d-lg-inline-flex ">
+                        <li class="breadcrumb-item">
+                            <RouterLink class="text-decoration-none" to="/">Home</RouterLink>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <RouterLink class="text-decoration-none" to="/food">Food List
+                            </RouterLink>
+                        </li>
+                        <li class="breadcrumb-item active text-decoration-none" aria-current="page">
+                            <strong>
+                                Order
+                            </strong>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="col-12">
 
             <h1>{{ keranjangs.length }} jenis makanan </h1>
-            <div class="table table-responsive">
+            <div class="table table-responsive table-hover">
 
                 <table class="table">
                     <thead>
@@ -20,13 +40,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(keranjang, index) in keranjangs" :key="keranjang.id">
+                        <tr class="align-middle" v-for="(keranjang, index) in keranjangs" :key="keranjang.id">
                             <td>{{ index + 1 }}</td>
-                            <td width="250px">
+                            <td width="150px">
                                 <img class="rounded-lg w-100 shadow" loading="lazy"
                                     :src="require(`../assets/imgs/${keranjang.products.gambar ? keranjang.products.gambar : 'sate-ayam.jpg'}`)">
                             </td>
-                            <td>{{ keranjang.products.nama }}</td>
+                            <td >{{ keranjang.products.nama }}</td>
                             <td>{{ keranjang.jumlah_pemesanan }}</td>
                             <td>Rp.{{ keranjang.products.harga }}</td>
                             <td>
@@ -37,10 +57,9 @@
                             </td>
                             <td>{{ keranjang.keterangan }}</td>
                             <td class="text-center">
-                                <i class="bi-trash-fill text-danger hljs-strong">
-
-
-                                </i>
+                                <button class="btn btn-danger" @click="hapusKeranjang(keranjang.id)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -49,12 +68,13 @@
                         <td colspan="5" class="text-right">
                             <strong>Total Harga</strong>
                         </td>
-                        <td>
+                        <td colspan="3" >
                             <strong>Rp.{{ totalHarga }}</strong>
                         </td>
                     </tr>
 
                 </table>
+            </div>
             </div>
         </div>
     </div>
@@ -71,20 +91,23 @@ export default {
     data() {
         return {
             keranjangs: [],
-
         };
     },
     methods: {
         setKeranjang(data) {
             this.keranjangs = data
+        },
+        hapusKeranjang(id) {
+            if (confirm("Apakah anda yakin ingin menghapus data ini ?")) {
+                axios
+                    .delete(`http://localhost:3000/keranjangs/${id}`)
+                    .then(() => this.$router.go())
+                    .catch((error) => console.log(error));
+                
+            }
         }
     },
-    /*************  ✨ Codeium Command ⭐  *************/
-    /**
-     * Fetches the keranjang data from the server and stores it in the
-     * component's `keranjang` data property.
-     */
-    /******  e78e15a8-b774-4fab-8dbb-785e42c13ee4  *******/
+    
     mounted() {
         axios
             .get("http://localhost:3000/keranjangs")

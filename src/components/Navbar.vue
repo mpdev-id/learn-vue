@@ -30,7 +30,7 @@
                             <i class="bi bi-cart-x"></i>
                             Order
                             <div class="badge badge-info rounded-circle">{{
-                                keranjang.length }}</div>
+                                propsUpdateKeranjangs? propsUpdateKeranjangs.length : keranjang.length }}</div>
                         </router-link>
                     </li>
                 </ul>
@@ -49,6 +49,7 @@ export default {
             keranjang: [],
         }
     },
+    props: ['propsUpdateKeranjangs'],
     methods: {
         setKeranjang(data) {
             this.keranjang = data;
